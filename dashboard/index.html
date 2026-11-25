@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <p class="kicker">MAKE.FUN BOUNTY · TOKEN-RADAR-01 · MODEL RADAR-2</p>
+    <h1>Token Radar</h1>
+    <p class="lede">Every protocol in the snapshot that records no token, ranked by what its
+    token would be worth if the protocol's record stayed as it is. Live-token
+    protocols are kept apart, at the market's own values.</p>
+    <dl class="stats" id="stats"></dl>
+    <p class="src" id="src"></p>
+  </div>
+</header>
+<main class="wrap">
+  <nav class="tabs" id="tabs">
+    <button data-tab="board" class="on" type="button">Board</button>
+    <button data-tab="live" type="button">Live tokens</button>
+    <button data-tab="model" type="button">How the model works</button>
+  </nav>
+
+  <section id="tab-board">
+    <div class="controls">
+      <label>Search <input id="q" type="search" placeholder="name or slug" autocomplete="off"></label>
+      <label>Category <select id="cat"><option value="">All categories</option></select></label>
+      <label>Chain <select id="chain"><option value="">All chains</option></select></label>
+      <label class="check"><input id="watch" type="checkbox"> Watchlist only</label>
+      <label>Sort
+        <select id="sort">
+          <option value="value">Implied value ↓</option>
+          <option value="tvl">TVL ↓</option>
+          <option value="growth">7-day change ↓</option>
+          <option value="age">Age ↓</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </label>
+      <p class="count" id="count"></p>
+    </div>
+    <p class="hint">Click a row to open its detail view and farm plan. Click a column
+    heading to sort by it.</p>
+    <article id="detail" class="detail" hidden></article>
+    <div class="tablewrap">
+      <table id="board">
+        <thead><tr>
+          <th data-k="rank">#</th><th data-k="name">Protocol</th><th data-k="category">Category</th>
+          <th data-k="chains">Chains</th><th data-k="tvl">TVL</th><th data-k="growth">7d</th>
+          <th data-k="age">Age</th><th data-k="value">Implied value</th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="tab-live" hidden>
+    <p class="lede">Protocols whose token already trades. The board never ranks these:
+    their value is the market's, not the model's.</p>
+    <div class="tablewrap">
+      <table id="livetab">
+        <thead><tr><th>Protocol</th><th>Category</th><th>Chains</th><th>TVL</th><th>Market cap</th><th>7d</th></tr></thead>
+        <tbody id="liverows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="tab-model" hidden>
+    <h2>How the model works</h2>
+    <p>One formula scores every row, from the snapshot's own figures only. No
+    protocol name is ever special-cased.</p>
+    <p class="formula">implied&nbsp;=&nbsp;TVL&nbsp;×&nbsp;category&nbsp;multiple&nbsp;×&nbsp;momentum&nbsp;×&nbsp;seasoning&nbsp;×&nbsp;breadth</p>
+    <table class="modeltab">
+      <thead><tr><th>Factor</th><th>What it is</th><th>Range</th></tr></thead>
+      <tbody>
+        <tr><td>Category multiple</td><td>What a dollar of TVL is worth depends on what the protocol does with it: fee-earning books sit above pass-through plumbing.</td><td>0.12 – 0.30</td></tr>
+        <tr><td>Momentum</td><td>1 + 0.45 × 7-day TVL change, change clamped to −40%…+100%.</td><td>0.82 – 1.45</td></tr>
+        <tr><td>Seasoning</td><td>0.45 + 0.55 × age in days, capped at 1,095 days; no listing date scores as 365 days.</td><td>0.45 – 1.00</td></tr>
+        <tr><td>Breadth</td><td>1 + 0.04 per chain, up to 8 chains.</td><td>1.04 – 1.32</td></tr>
+      </tbody>
+    </table>
+    <h3>Category multiples</h3>
+    <table class="modeltab" id="mults">
+      <thead><tr><th>Category</th><th>Multiple</th><th>Why</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <h3>What the board is not</h3>
+    <p>The board does not predict whether or when a protocol issues a token, and
+    an implied value is this entry's claim, never a market price. A protocol the
+    snapshot records as having no token may still have one its record does not
+    carry. Farm steps are a starting plan, not advice, and every step names what
+    it costs before you spend it.</p>
+  </section>
+</main>
+<footer class="wrap foot">
+  <p>Token Radar · model radar-2 · snapshot 2026-11-14 · built for the make.fun
+  token-radar-01 bounty. Values are implied, not quoted.</p>
+</footer>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

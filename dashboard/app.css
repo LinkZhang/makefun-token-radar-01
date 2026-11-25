@@ -1,0 +1,84 @@
+/* Token Radar dashboard: one dark palette, one type scale, no network. */
+:root {
+  --bg: #0d1524;
+  --panel: #131e33;
+  --panel2: #182740;
+  --line: #26395c;
+  --ink: #e8eef7;
+  --muted: #9db0cc;
+  --faint: #6b7f9f;
+  --accent: #f2b23e;
+  --accent-ink: #1a1405;
+  --good: #4cc38a;
+  --bad: #e26d5a;
+  --chip: #22345a;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.5 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+.top { background: linear-gradient(180deg, #101d33, #0d1524); border-bottom: 1px solid var(--line); padding: 28px 0 20px; }
+.kicker { margin: 0 0 6px; color: var(--accent); font-size: 12px; letter-spacing: .14em; font-weight: 700; }
+h1 { margin: 0 0 8px; font-size: 34px; line-height: 1.1; letter-spacing: -.01em; }
+.lede { margin: 0 0 14px; max-width: 72ch; color: var(--muted); }
+.stats { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 0; padding: 0; }
+.stats div { display: flex; flex-direction: column; }
+.stats dt { font-size: 12px; color: var(--faint); text-transform: uppercase; letter-spacing: .08em; }
+.stats dd { margin: 2px 0 0; font-size: 22px; font-weight: 700; }
+.src { margin: 12px 0 0; color: var(--faint); font-size: 13px; }
+.tabs { display: flex; gap: 8px; margin: 18px 0 16px; }
+.tabs button {
+  border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+  border-radius: 999px; padding: 8px 16px; font: inherit; font-weight: 600; cursor: pointer;
+}
+.tabs button.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; margin-bottom: 10px; }
+.controls label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--faint); text-transform: uppercase; letter-spacing: .06em; }
+.controls label.check { flex-direction: row; align-items: center; gap: 6px; text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--ink); padding-bottom: 7px; }
+.controls input[type="search"], .controls select {
+  background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; font: inherit; font-size: 14px;
+}
+.controls input[type="search"] { width: 210px; }
+.count { margin: 0 0 0 auto; align-self: center; color: var(--muted); font-size: 14px; }
+.hint { margin: 0 0 10px; color: var(--faint); font-size: 13px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+#board th[data-k] { cursor: pointer; }
+#board th[data-k]:hover { color: var(--accent); }
+#board tbody tr { cursor: pointer; }
+#board tbody tr:hover { background: var(--panel2); }
+#board tbody tr.sel { background: var(--panel2); box-shadow: inset 3px 0 0 var(--accent); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+td .sub { display: block; color: var(--faint); font-size: 12px; }
+.badge {
+  display: inline-block; background: var(--chip); color: var(--accent);
+  border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 700; margin-left: 6px;
+}
+.up { color: var(--good); }
+.down { color: var(--bad); }
+.detail {
+  margin: 16px 0; border: 1px solid var(--accent); border-radius: 12px;
+  background: var(--panel); padding: 18px 20px;
+}
+.detail h2 { margin: 0 0 4px; font-size: 22px; }
+.detail .meta { color: var(--muted); margin: 0 0 12px; }
+.detail h3 { margin: 16px 0 6px; font-size: 15px; color: var(--accent); }
+.detail ol { margin: 0; padding-left: 20px; }
+.detail ol li { margin: 8px 0; }
+.detail ol li b { color: var(--accent); }
+.math { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; background: var(--panel2); border-radius: 8px; padding: 10px 12px; overflow-x: auto; }
+.math b { color: var(--accent); }
+.formula { font-size: 19px; font-weight: 700; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.modeltab { margin-bottom: 18px; }
+.modeltab td { white-space: normal; }
+.foot { color: var(--faint); font-size: 13px; padding: 22px 20px 30px; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { position: static; }
